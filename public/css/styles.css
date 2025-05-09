@@ -1,0 +1,231 @@
+/**
+ * Stylesheet for the "99 Bottles of Beer on the Wall" web application.
+ * Defines styles for verses, buttons, and icons, with responsive design and accessibility features.
+ * Uses CSS custom properties for theming and integrates with index.php and main.js.
+ * Includes fixed bar styling for the sing-along button on small screens (<=600px).
+ */
+
+ @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&display=swap') layer(base);
+
+ /* Font optimization for performance */
+ @font-face {
+     font-family: 'Bebas Neue';
+     font-display: swap; /* Improve loading performance */
+ }
+ @font-face {
+     font-family: 'Lato';
+     font-display: swap;
+ }
+ 
+ /* Root Variables */
+ :root {
+     --primary-color: #402e32; /* Main text color */
+     --background-color: #fffdfa; /* Background color */
+     --accent-color: #b38652; /* Accent color for buttons and highlights */
+     --button-bg: rgba(62, 39, 35, 0.9); /* Background color for buttons */
+     --highlight-bg: rgba(231, 210, 161, 0.3); /* Verse highlight background */
+ }
+ 
+ /* Global Styles */
+ body {
+     font-family: "Lato", sans-serif; /* Main font with fallback */
+     line-height: 1.5; /* Improved readability */
+     color: var(--primary-color);
+     background: var(--background-color);
+     margin: 0 auto; /* Center content */
+     padding: 20px;
+     max-width: 900px; /* Constrain content width */
+ }
+ 
+ /* Headings */
+ h1 {
+     font-family: "Bebas Neue", sans-serif;
+     font-size: 42px;
+     text-align: center;
+     color: var(--accent-color);
+     margin-bottom: 2rem;
+     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Main Content */
+ main {
+     padding: 20px;
+ }
+ 
+ /* Verse Styles */
+ .verse {
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.5s ease, transform 0.5s ease;
+     padding: 12px;
+     border-radius: 8px;
+     font-size: 18px;
+     margin-bottom: 12px;
+     margin-top: 12px;
+    
+     @media (max-width: 600px) {
+        font-size: 16px;
+     }
+ }
+ 
+ .verse.visible {
+     opacity: 1;
+     transform: translateY(0);
+     width: fit-content;
+     margin: 0 auto;
+     display: flex;
+     gap: 2rem;
+     align-items: center;
+ }
+
+ .beer-verse-text p {
+    margin-top: 4px;
+    margin-bottom: 0;
+ }
+ 
+ .verse.highlight {
+     background-color: var(--highlight-bg);
+     transition: background-color 0.5s ease;
+ }
+ 
+ /* Responsive verse layout */
+ @media (max-width: 600px) {
+     .verse.visible {
+         display: block;
+     }
+ }
+ 
+ /* Beer Info Styles */
+ .beer-info {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+     align-items: center;
+ }
+ 
+ @media (max-width: 600px) {
+     .beer-info {
+         display: block;
+     }
+ }
+ 
+ .beer-counter {
+     color: var(--accent-color);
+     font-size: 24px;
+     font-family: "Bebas Neue", sans-serif;
+ }
+ 
+ /* Icon Styles */
+ .bottle-icon {
+     width: 30px;
+     height: 30px;
+     vertical-align: middle;
+     transition: transform 0.3s ease;
+ }
+ 
+ @media (max-width: 600px) {
+     .bottle-icon {
+         margin-right: 10px;
+     }
+ }
+ 
+ .verse:hover .bottle-icon {
+     transform: rotate(5deg);
+ }
+ 
+ /* Footer Styles */
+ footer {
+    display: flex;
+    margin-bottom: 75px;
+ }
+ .sing-along-btn {
+     display: block;
+     padding: 12px 20px;
+     margin: auto;
+     border-radius: 8px;
+     cursor: pointer;
+     font-family: 'Lato', sans-serif;
+     font-size: 16px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     transition: background 0.3s ease, transform 0.2s ease;
+     z-index: 1000;
+     border: none;
+ }
+
+ #restart {
+    margin-bottom: 8rem;
+    color: var(--accent-color);
+    text-align: center;
+    margin: auto;
+ }
+ 
+ .sing-along-btn {
+     background: var(--accent-color);
+     color: #fff;
+ }
+ 
+ /* Fixed position for larger screens */
+ @media (min-width: 601px) {
+     .sing-along-btn {
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+     }
+ }
+ 
+ /* Fixed bar for small screens */
+ @media (max-width: 600px) {
+     .sing-along-btn {
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+         padding: 15px;
+         border-radius: 0; /* Flat bar appearance */
+         font-size: 1.1rem; /* Slightly larger for touch */
+         box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2); /* Shadow at top */
+     }
+ }
+ 
+ .sing-along-btn:hover,
+ .sing-along-btn:focus {
+     background: var(--primary-color);
+     transform: scale(1.02); /* Subtle scale effect */
+ }
+ 
+ /* Accessibility Styles */
+ @media (prefers-contrast: high) {
+     body {
+         color: #000;
+         background: #fff;
+     }
+     h1 {
+         color: #000;
+     }
+     .verse.highlight {
+         background-color: #ffd700; /* High-contrast highlight */
+     }
+     .sing-along-btn,
+     .restart-btn {
+         background: #000;
+         color: #fff;
+     }
+ }
+ 
+ @media (prefers-reduced-motion: reduce) {
+     .verse,
+     .bottle-icon,
+     .sing-along-btn,
+     .restart-btn {
+         transition: none;
+         transform: none;
+         opacity: 1;
+     }
+ }
+ 
+ /* Keyframes for Animation */
+ @keyframes tilt {
+     0% { transform: rotate(0deg); }
+     50% { transform: rotate(5deg); }
+     100% { transform: rotate(-5deg); }
+ }
