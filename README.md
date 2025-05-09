@@ -16,5 +16,5 @@ To view the suPHPreme application on your local machine, follow these steps:
 1. **Clone the Repository**:
    If you haven't already, clone the repository to your local machine using the following command:
    ```
-   git clone <YOUR_REPOSITORY_URL>
+   git clone https://github.com/shanehoving/suphpreme
    cd suPHPreme
